@@ -1,10 +1,18 @@
 pipeline {
+
+  agent {
+    // Run command on Docker-VM, instead inside Jenkins container.
+    label 'docker-vm'
+  }
+
   stages {
     stage ('Test Pipeline') {
       steps {
         echo "Show Docker"
-        docker --version
-        docker image ls
+        sh '''
+          docker --version
+          docker image ls
+        '''
       }
     }
   }
