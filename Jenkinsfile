@@ -13,7 +13,7 @@ pipeline {
           docker --version
           docker image ls
 
-          echo "You can do docker-compose, and other command here!"
+          echo "You can do docker-compose, and other command here!!"
         '''
       }
     }
