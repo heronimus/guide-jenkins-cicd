@@ -12,6 +12,8 @@ pipeline {
         sh '''
           docker --version
           docker image ls
+
+          echo "You can do docker-compose, and other command here!"
         '''
       }
     }
