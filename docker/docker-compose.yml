@@ -1,7 +1,7 @@
 version: '3'
 services:
   web:
-    build: ../app
+    build: ../app-code
     image: future-flask-redis:latest
     ports:
       - 5000
