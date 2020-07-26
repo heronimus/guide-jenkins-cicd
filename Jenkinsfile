@@ -6,14 +6,28 @@ pipeline {
   }
 
   stages {
-    stage ('Test Pipeline') {
+    stage ('Check Docker') {
       steps {
         echo "Show Docker"
         sh '''
           docker --version
-          docker image ls
+        '''
+      }
+    }
 
-          echo "You can do docker-compose, and other command here!!"
+    stage ('Deploy: Execute docker-compose') {
+      steps {
+        sh '''
+          docker-compose -f docker/docker-compose.yml up $(cat docker/compose-arguments)
+        '''
+      }
+    }
+
+    stage ('Deploy: Show Docker Info') {
+      steps {
+        sh '''
+          docker-compose -f docker/docker-compose.yml ps
+          docker container ls
         '''
       }
     }
