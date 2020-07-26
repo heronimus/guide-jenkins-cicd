@@ -10,7 +10,7 @@ Run Jenkins container (with port 8080 & 50000, run as daemon, container name: `f
 
     docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home -d --name future-jenkins jenkins/jenkins:lts
 
-Open Firewall, port 8080 is for jenkins web-ui, port 50000 is for node connector:
+Open Firewall, port 8080 for jenkins web-ui, and port 50000 for node connector.
 
     firewall-cmd --add-port=8080/tcp --permanent
     firewall-cmd --add-port=50000/tcp --permanent
@@ -31,10 +31,10 @@ The Jenkins will open at your port 8080!
 
 - Jenkins-UI will try to install sugested plugin, wait until all plugin installed.
 - Enter user credential for admin
-- Done, your Jenkins is up & running now! Try to open at you local port 8080.
+- Done, your Jenkins is up & running now! Try to open at your local port 8080.
 
 
-## Add you Docker VM to Jenkins
+## Add your Docker-VM to Jenkins
 
 You'll need to execute anything about your deployment (docker) on Docker-VM not on your Jenkins-VM/Container, so we will link your Docker-VM to Jenkins VM.
 
@@ -76,7 +76,7 @@ You'll need to execute anything about your deployment (docker) on Docker-VM not 
 ## Jenkins-Github Integration: Create New Job
 
 - Prepare repository on your github account (use existing/create new)
-- Add Jenkinsfile to your repository, contain below pipelines code for testing:
+- Add `Jenkinsfile` to your repository, contain below pipelines code for testing:
   ```
    pipeline {
 
