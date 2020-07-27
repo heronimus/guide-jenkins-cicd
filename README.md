@@ -1,6 +1,8 @@
-# Jenkins Docker
+# Jenkins Pipeline CI/CD on Local Environment
 
 ## Jenkins Container Setup
+
+In this tutorial, we will setup Jenkins using Jenkins community docker images.
 
 Pull Jenkins docker image:
 
@@ -163,3 +165,5 @@ After your jenkins now is publicly available, set you Github repository to conne
   ![](/docs/images/Clipboard_2020-07-26-07-31-31.png)
 
 - Edit the pipeline, suit the pipeline for your CI/CD jobs like: build docker images, run docker-compose, scale up/down your nodes.
+
+- Pipeline example for deploy app using docker-compose: [Jenkinsfile](/Jenkinsfile)
