@@ -1,6 +1,7 @@
-# Jenkins Pipeline CI/CD on Local Environment
+# Guide: Jenkins CI/CD Pipeline with Github Integration on Local Environment
 
 This guide intended for learning purposes only, originally created for Blibli Future Program (Infra team). Some parts of this guide may be not suitable for your needs, please adjust accordingly.
+
 In this tutorial, we will set up Jenkins using Jenkins community docker images, and use Ngrok as tunnel-forwarding for your Jenkins instance.
 
 ## Jenkins Container Setup
