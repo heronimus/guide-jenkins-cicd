@@ -1,1 +1,1 @@
--d --scale web=4
+-d --scale web=4 --build
