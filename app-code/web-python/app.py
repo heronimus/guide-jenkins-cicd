@@ -25,4 +25,4 @@ def hello():
     count = get_hit_count()
     host_name = socket.gethostname()
     host_ip = socket.gethostbyname(host_name)
-    return 'Hello World! I have been seen {} times.<br><br><br>Hostname: {} <br>IP: {}'.format(count,host_name,host_ip)
+    return 'Hello Jenkins World! I have been seen {} times.<br><br><br>Hostname: {} <br>IP: {}'.format(count,host_name,host_ip)
