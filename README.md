@@ -1,8 +1,9 @@
 # Jenkins Pipeline CI/CD on Local Environment
 
-## Jenkins Container Setup
+This guide intended for learning purposes only, originally created for Blibli Future Program (Infra team). Some parts of this guide may be not suitable for your needs, please adjust accordingly.
+In this tutorial, we will set up Jenkins using Jenkins community docker images, and use Ngrok as tunnel-forwarding for your Jenkins instance.
 
-In this tutorial, we will setup Jenkins using Jenkins community docker images.
+## Jenkins Container Setup
 
 Pull Jenkins docker image:
 
@@ -12,33 +13,34 @@ Run Jenkins container (with port 8080 & 50000, run as daemon, container name: `f
 
     docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home -d --name future-jenkins jenkins/jenkins:lts
 
-Open Firewall, port 8080 for jenkins web-ui, and port 50000 for node connector.
+Open Firewall on your machine, port 8080 for jenkins web-ui, and port 50000 for node connector.
 
     firewall-cmd --add-port=8080/tcp --permanent
     firewall-cmd --add-port=50000/tcp --permanent
     firewall-cmd --reload
 
-The Jenkins will open at your port 8080!
+The Jenkins will open at port 8080! try to open that!
 
 ** Additional info about Jenkins docker: https://github.com/jenkinsci/docker/blob/master/README.md
 
 ------
 ## Jenkins Web-UI Setup
 
-- Jenkins will need you to enter initial password, initial password is located at`/var/jenkins_home/secrets/initialAdminPassword` inside container, to show the password use `docker exec`.
+- Jenkins will need you to enter initial password, initial password is located at`/var/jenkins_home/secrets/initialAdminPassword` inside the container, to show the password use `docker exec`.
 
       docker exec future-jenkins cat /var/jenkins_home/secrets/initialAdminPassword
 
-  Initial password will show, copy and enter password to Jenkins UI.
+  Initial password will show, copy and enter password to Jenkins Web-UI.
 
-- Jenkins-UI will try to install sugested plugin, wait until all plugin installed.
-- Enter user credential for admin
-- Done, your Jenkins is up & running now! Try to open at your local port 8080.
+- Jenkins will try to install sugested plugin, wait until all plugin installed.
+- Enter user credential for admin.
+- Done, your Jenkins is up & running now! Try to go around in the Jenkins.
 
 
-## Add your Docker-VM to Jenkins
+## Add New Node (Docker-VM) to Jenkins
+*** This part only applicable if you have another VM/Instance for running Docker, it's fine to skip this.
 
-You'll need to execute anything about your deployment (docker) on Docker-VM not on your Jenkins-VM/Container, so we will link your Docker-VM to Jenkins VM.
+We will execute anything about the docker deployment on Docker-VM (seperate VM) not on Jenkins-VM/Container, so we will link Docker-VM to the Jenkins-VM.
 
 #### Run command below on your **Docker-VM** node, not on Jenkins-VM.
 - Before start, Jenkins will need your nodes agent to have Java, to install that open your **Docker-VM** then install Java.
@@ -48,11 +50,11 @@ You'll need to execute anything about your deployment (docker) on Docker-VM not 
 - Then, create jenkins-workspace directory on **Docker-VM**, then change permission for your user.
 
       sudo mkdir /opt/jenkins-workspace
-      sudo chown -R heronimus:heronimus /opt/jenkins-workspace
+      sudo chown -R your-user:your-user /opt/jenkins-workspace
 
 #### Back to Jenkins
 
-- Back to Jenkins homepage, navigate to 'Manage Jenkins' --> Manage Nodes and Cloud --> New Node
+- Back to Jenkins homepage, navigate to **``Manage Jenkins`` --> `Manage Nodes and Cloud` --> `New Node`**
 - On the Node name write 'Docker-VM', select as `Permanent Agent`, OK.
 - Fill the form:
 
@@ -60,7 +62,7 @@ You'll need to execute anything about your deployment (docker) on Docker-VM not 
 
 - Select launch method using SSH (Or you can use other option such as Jenkins Agent). Change 'Host Key Verification Strategy' to `Non verifying Verifycation Strategy`.
 
-- Add your SSH credentials (username & password) via Credentials 'Add' button. Make sure that you used user that can be used on SSH and have permission to run Docker and open jenkins-workspace.
+- Add your SSH credentials (username & password) via Credentials 'Add' button. Make sure that you used user that can be used on SSH and have permission to run Docker and open jenkins-workspace. You may need to change additional configuration (Advanced) if you have custom SSH port settings / different Java path on your target machine.
 
   ![](/docs/images/Clipboard_2020-07-26-06-11-36.png)
 
@@ -77,7 +79,7 @@ You'll need to execute anything about your deployment (docker) on Docker-VM not 
 
 ## Jenkins-Github Integration: Create New Job
 
-- Prepare repository on your github account (use existing/create new)
+- Prepare repository on your github account (use existing/create new).
 - Add `Jenkinsfile` to your repository, contain below pipelines code for testing:
   ```
    pipeline {
@@ -104,7 +106,7 @@ You'll need to execute anything about your deployment (docker) on Docker-VM not 
   }
 
     ```
-
+  Jenkinsfile contain pipeline, which Jenkins will lookup and execute on build.
 - Create `New Item` on Jenkins, give it a name, and select `Pipeline`, then OK.
 
   ![](/docs/images/Clipboard_2020-07-26-04-43-21.png)
