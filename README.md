@@ -2,7 +2,19 @@
 
 This guide intended for learning purposes only, originally created for Blibli Future Program (Infra team). Some parts of this guide may be not suitable for your needs, please adjust accordingly.
 
-In this tutorial, we will set up Jenkins using Jenkins community docker images, and use Ngrok as tunnel-forwarding for your Jenkins instance.
+In this tutorial, we will set up Jenkins using Jenkins community docker images, and use Ngrok as tunnel-forwarding for your Jenkins instance. Here's what we will do through the guide:
+
+### Table of Contents
+- [Jenkins Container Setup](#jenkins-container-setup)
+- [Jenkins Web-UI Setup](#jenkins-web-ui-setup)
+- [Add New Worker Node to Jenkins](#add-new-node-docker-vm-to-jenkins)
+- Jenkins-Github Integration:
+    - [Create New Jobs](#jenkins-github-integration-create-new-job)
+    - [Ngrok Tunnel Forwarding](#jenkins-github-integration-ngrok-tunnel-local-jenkins)
+    - [Github Repository Configuration](#jenkins-github-integration-repo-configuration)
+- [Test CI/CD Pipeline](#test-your-cicd)
+
+----------------------
 
 ## Jenkins Container Setup
 
